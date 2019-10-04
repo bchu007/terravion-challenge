@@ -1,0 +1,32 @@
+{
+  "name": "terravion",
+  "version": "1.0.0",
+  "description": "Full-Stack Engineering Challenge",
+  "main": "webpack.config.js",
+  "scripts": {
+    "watch": "webpack --watch --mode=production",
+    "build": "webpack --mode=production",
+    "dev": "webpack-dev-server --hot"
+  },
+  "author": "Brian Chu",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.6.2",
+    "@babel/plugin-transform-react-jsx": "^7.3.0",
+    "babel-loader": "^8.0.6",
+    "css-loader": "^3.2.0",
+    "file-loader": "^4.2.0",
+    "style-loader": "^1.0.0",
+    "url-loader": "^2.1.0",
+    "webpack": "^4.41.0",
+    "webpack-cli": "^3.3.9",
+    "webpack-dev-server": "^3.8.2"
+  },
+  "dependencies": {
+    "axios": "^0.19.0",
+    "leaflet": "^1.5.1",
+    "react": "^16.10.1",
+    "react-dom": "^16.10.1",
+    "react-flatpickr": "^3.9.1"
+  }
+}
