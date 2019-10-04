@@ -1,11 +1,10 @@
 # build guide
->git clone https://github.com/bchu007/terravion-challenge.git
+>git clone https://github.com/bchu007/terravion-challenge.git;
 
->cd terravion-challenge
+>cd terravion-challenge;
 
->npm install
+>npm install;
 
->npm run build
+>npm run build;
 
->npm run dev
-
+>npm run dev;
