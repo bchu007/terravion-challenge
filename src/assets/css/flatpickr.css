@@ -1,28 +1,24 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto');
 
 .flatpickr {
-  margin: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 
+}
+.flatpickr-input {
+  width: 80px;
 }
 
 .date-selector-container {
-  margin: auto;
   display: flex;
-  width: 70vw;
+  width: 100vw;
   justify-content: center;
   background-color: whitesmoke;
-}
-
-@media (max-width: 600px) {
-  .date-selector-container {
-    width: calc(100vw - 15px);
-  }
 }
 
 .date-label {
   font-family: 'Roboto', cursive;
   font-size: .75em;
-  margin-left:20px;
   margin-top: 13px;
 }
 

@@ -3,6 +3,7 @@ import L from 'leaflet';
 import accessToken from '../config/access_token.js'
 import DatePicker from '../components/date-picker'
 import '../assets/css/map.css'
+import { runInThisContext } from 'vm';
 
 export default class Map extends React.Component {
   constructor(props) {
@@ -14,6 +15,7 @@ export default class Map extends React.Component {
       tileLayer: null,
       layersControl: null,
       tile_url: null,
+      info_url: null,
       baseUrl: "https://api2.terravion.com",
       userId: '5bad4dfa-7262-4a0a-b1e5-da30793cec65',
       blockId: '48ed28ca-d272-4d1f-bfe0-cb95b61eecbc',
@@ -22,7 +24,7 @@ export default class Map extends React.Component {
       epochEnd: 0,
       firstEpoch: 0,
       dates: [],
-      layers: []
+      info: null
     }
 
     this.captureEpochs = this.captureEpochs.bind(this);
@@ -30,6 +32,7 @@ export default class Map extends React.Component {
     this.initMap = this.initMap.bind(this);
     this.updateMap = this.updateMap.bind(this);
     this.getDate = this.getDate.bind(this);
+    this.getInfo = this.getInfo.bind(this);
     this.componentDidUpdate = this.componentDidUpdate.bind(this);
     this.componentDidMount = this.componentDidMount.bind(this);
   }
@@ -75,6 +78,34 @@ export default class Map extends React.Component {
       });
   }
 
+  getInfo() {
+    var infoEndpoint = `${this.state.baseUrl}/userBlocks/getUserBlocksForMap?`
+    infoEndpoint += `userId=${this.state.userId}`
+    infoEndpoint += `&access_token=${accessToken}`
+    console.log(infoEndpoint);
+    fetch(infoEndpoint)
+      .then(response => response.json())
+      .then(json => {
+        var currBlockId = this.state.blockId;
+        var plotInfo = null;
+        for(var i = 0; i < json.length; i++) {
+          var plotData = json[i];
+          if(plotData.blockId === currBlockId) {
+            plotInfo = {
+              geom: JSON.parse(plotData.geom),
+              farm: plotData.farm,
+              field: plotData.field
+            }
+            this.setState({info: plotInfo});
+            break;
+          }
+        }
+      });
+
+
+
+  }
+
   initMap() {
     var map = L.map('map').setView([38.540580, -121.877271], 15)
     var layersControl = L.control.layers();
@@ -111,6 +142,7 @@ export default class Map extends React.Component {
 
   componentDidMount() {
     this.captureEpochs();
+    this.getInfo();
     this.initMap();
 
   }
@@ -123,12 +155,14 @@ export default class Map extends React.Component {
   render() {
     return (
       <>
+
         <div id="map"></div>
         <DatePicker
           getDate={this.getDate}
           dates={this.state.dates.map(date => new Date(date))}
           firstEpoch={this.state.firstEpoch}
         />
+        {/* <Details info={this.state.info}/> */}
       </>
     )
   }

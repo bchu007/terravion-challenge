@@ -59,6 +59,7 @@ export default class DatePicker extends React.Component {
     return (
       <div className="date-selector-container">
         <span className="date-label">Start Date:</span>
+        &nbsp;&nbsp;
         <Flatpickr options={options}
           value={startDate} className="flatpickr"
           onDayCreate={makeMakers}
@@ -66,7 +67,9 @@ export default class DatePicker extends React.Component {
             this.setState({ startDate: startDate[0] });
             this.props.getDate(this.state.startDate, this.state.endDate);
           }} />
+        &nbsp;&nbsp;&nbsp;&nbsp;
         <span className="date-label">End Date:</span>
+        &nbsp;&nbsp;
         <Flatpickr options={options}
           value={endDate} className="flatpickr"
           onDayCreate={makeMakers}
